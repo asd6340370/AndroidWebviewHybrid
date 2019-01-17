@@ -1,4 +1,4 @@
-package com.android.webviewhybrid.wv;
+package com.android.webviewhybrid.web;
 
 import android.webkit.WebChromeClient;
 

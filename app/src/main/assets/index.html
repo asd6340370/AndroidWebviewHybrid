@@ -10,12 +10,15 @@
 	<h3 id="m_height"></h3>
 	<h3 id="m_width1"></h3>
 	<h3 id="m_height1"></h3>
+	<br/><br/>
+	<h4 id="h41"></h4>
 	<script type="text/javascript">
 		var dom1 = document.getElementById("headline");
 		var dom2 = document.getElementById("m_width");
 		var dom3 = document.getElementById("m_height");
 		var dom4 = document.getElementById("m_width1");
 		var dom5 = document.getElementById("m_height1");
+		var dom6 = document.getElementById("h41");
 
 		function windowInfo (){
 			var info = window.navigator.userAgent;
@@ -24,7 +27,9 @@
 			dom3.innerHTML = "高 ：" + window.innerHeight;
 			dom4.innerHTML = "宽 ：" + window.screen.width;
 			dom5.innerHTML = "高 ：" + window.screen.height;
-			alert(info);
+			//alert(info);
+			var str = window.nativePlugin.showMessage();
+			dom6.innerHTML = str;
 		}
 	</script>
 
