@@ -11,7 +11,7 @@ public class FileUtil {
         return Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState());
     }
 
-    public static String getSDCardPath(Context context) throws IOException {
+    public static String getSDCardPath() throws IOException {
         if (!isSdCardEnable())
             throw new IOException("SDCard is not exist");
         return Environment.getExternalStorageDirectory().getAbsolutePath();
