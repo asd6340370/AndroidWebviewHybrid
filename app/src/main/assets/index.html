@@ -1,36 +1,97 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 	<title></title>
+    <style>
+        .input_btn{
+        	margin:5px;
+        	width:100px;
+        	height: 100px;
+        }
+        body{
+        	background-color : rgb(196, 248, 255);
+        }
+    </style>
 </head>
 <body>
-	<input type="button" name="" onclick="windowInfo()">
+	<input type="button" name="" value="点击" onclick="windowInfo()" class="input_btn"> 
+	<input type="button" name="" value="get" onclick="nativeGetRequest()" class="input_btn"> 
+	<input type="button" name="" value="post" onclick="nativePostRequest()" class="input_btn"> 
 	<h2 id="headline"></h2>
 	<h3 id="m_width"></h3>
 	<h3 id="m_height"></h3>
 	<h3 id="m_width1"></h3>
 	<h3 id="m_height1"></h3>
-	<br/><br/>
-	<h4 id="h41"></h4>
+	<h3 id="m_width2"></h3>
+	<h3 id="m_height2"></h3>
+	<br>
+	<h3 id="reuslt_content"></h3>
+
 	<script type="text/javascript">
 		var dom1 = document.getElementById("headline");
 		var dom2 = document.getElementById("m_width");
 		var dom3 = document.getElementById("m_height");
 		var dom4 = document.getElementById("m_width1");
 		var dom5 = document.getElementById("m_height1");
-		var dom6 = document.getElementById("h41");
+		var dom6 = document.getElementById("m_width2");
+		var dom7 = document.getElementById("m_height2");
+		var dom8 = document.getElementById("reuslt_content");
+
 
 		function windowInfo (){
 			var info = window.navigator.userAgent;
 			dom1.innerHTML = info;
-			dom2.innerHTML = "宽 ：" + window.innerWidth;
-			dom3.innerHTML = "高 ：" + window.innerHeight;
-			dom4.innerHTML = "宽 ：" + window.screen.width;
-			dom5.innerHTML = "高 ：" + window.screen.height;
-			//alert(info);
-			var str = window.nativePlugin.showMessage();
-			dom6.innerHTML = str;
+			dom2.innerHTML = "window宽 ：" + window.innerWidth;
+			dom3.innerHTML = "window高 ：" + window.innerHeight;
+			dom4.innerHTML = "screen宽 ：" + window.screen.availWidth;
+			dom5.innerHTML = "screen高 ：" + window.screen.availHeight;
+			dom6.innerHTML = "body宽： " + document.getElementsByTagName("body")[0].clientWidth;
+			dom7.innerHTML = "body高： " + document.getElementsByTagName("body")[0].clientHeight;
+			// alert(info);
 		}
+		function nativeGetRequest(){
+			var url = "http://192.168.43.101:8888";
+			var onSuccess = function(reuslt){
+				alert(`get_success : ${reuslt}`);
+				dom8.innerHTML = `get_success : ${reuslt}`;
+			}
+			var onFailure = function(err){
+				alert(`get_failure : ${err}`);
+				dom8.innerHTML = `get_failure : ${err}`;
+
+			}
+			window.nativePlugin.jsGet(url,callback4Android(onSuccess), callback4Android(onFailure));
+		}
+		function nativePostRequest(){
+			var url = "http://192.168.43.101:8888";
+			var param = "{'name' : 'andy'}"
+			var onSuccess = function(reuslt){
+				alert(`post_success : ${reuslt}`);
+				dom8.innerHTML = `post_success : ${reuslt}`;
+			}
+			var onFailure = function(err){
+				alert(`get_failure : ${err}`);
+				dom8.innerHTML = `post_failure : ${err}`;
+
+			}
+
+			window.nativePlugin.jsPost(url, param, callback4Android(onSuccess), callback4Android(onFailure));
+		}
+
+
+		var cb = {};
+		var index = 0;
+		function callback4Android(fn){
+			var key = index + "a";
+			cb[key] = fn;
+			index++;
+			return key
+		}
+
+
+
+
 	</script>
 
 </body>
